@@ -67,6 +67,7 @@ describe("DetailPage", () => {
   it("menampilkan status loading selama data dimuat", async () => {
     const { wrapper } = await setup("pending");
 
+    expect(wrapper.get("h1").text()).toBe("Detail Transaksi");
     expect(wrapper.text()).toContain("Memuat detail transaksi...");
   });
 

@@ -5,9 +5,12 @@
       Kembali ke ringkasan
     </RouterLink>
 
-    <div v-if="loading" class="py-24 text-center text-slate-700" role="status">
-      <Loader2 :size="36" class="mx-auto mb-2 animate-spin text-indigo-700" aria-hidden="true" />
-      <p class="font-medium">Memuat detail transaksi...</p>
+    <div v-if="loading" class="py-24 text-center text-slate-700">
+      <h1 class="sr-only">Detail Transaksi</h1>
+      <div role="status">
+        <Loader2 :size="36" class="mx-auto mb-2 animate-spin text-indigo-700" aria-hidden="true" />
+        <p class="font-medium">Memuat detail transaksi...</p>
+      </div>
     </div>
 
     <div v-else-if="!cashFlow" class="card p-8 text-center" data-testid="not-found-state">
