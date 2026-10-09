@@ -9,10 +9,12 @@
       <div class="relative">
         <img
           v-if="profile.photo"
-          :src="profile.photo"
+          :src="secureUrl(profile.photo)"
           :alt="`Foto ${profile.name}`"
           width="96"
           height="96"
+          decoding="async"
+          referrerpolicy="no-referrer"
           class="h-24 w-24 rounded-full border-4 border-white object-cover shadow-md ring-2 ring-indigo-100"
         />
         <div
@@ -98,7 +100,7 @@ import { computed, ref, watch } from "vue";
 import { User as UserIcon, Camera, Loader2, ShieldCheck } from "lucide-vue-next";
 import FormField from "../../common/components/FormField.vue";
 import { useUsersStore } from "../states/usersStore";
-import { showErrorDialog } from "../../../helpers/toolsHelper";
+import { secureUrl, showErrorDialog } from "../../../helpers/toolsHelper";
 
 const MAX_PHOTO_SIZE = 3 * 1024 * 1024;
 

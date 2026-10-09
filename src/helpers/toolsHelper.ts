@@ -56,6 +56,10 @@ export function getErrorMessage(error: unknown, fallback: string): string {
   return error instanceof Error && error.message ? error.message : fallback;
 }
 
+export function secureUrl(url: string | null | undefined): string {
+  return url ? url.replace(/^http:\/\//i, "https://") : "";
+}
+
 export function formatRupiah(value: number | string | null | undefined): string {
   return new Intl.NumberFormat("id-ID", {
     style: "currency",

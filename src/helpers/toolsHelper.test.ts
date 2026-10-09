@@ -4,6 +4,7 @@ import {
   formatDate,
   formatRupiah,
   getErrorMessage,
+  secureUrl,
   showConfirmDialog,
   showErrorDialog,
   showSuccessDialog,
@@ -50,6 +51,18 @@ describe("toolsHelper", () => {
 
     it("memakai fallback untuk nilai selain Error", () => {
       expect(getErrorMessage("teks", "Fallback")).toBe("Fallback");
+    });
+  });
+
+  describe("secureUrl", () => {
+    it("mengubah http menjadi https", () => {
+      expect(secureUrl("http://a.test/x.png")).toBe("https://a.test/x.png");
+    });
+
+    it("membiarkan url https dan menangani nilai kosong", () => {
+      expect(secureUrl("https://a.test/x.png")).toBe("https://a.test/x.png");
+      expect(secureUrl(null)).toBe("");
+      expect(secureUrl(undefined)).toBe("");
     });
   });
 

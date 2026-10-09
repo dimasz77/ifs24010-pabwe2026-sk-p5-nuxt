@@ -27,10 +27,12 @@
         <div class="flex items-center gap-3 rounded-full border border-slate-200 p-1.5 pr-3">
           <img
             v-if="profile.photo"
-            :src="profile.photo"
+            :src="secureUrl(profile.photo)"
             :alt="`Foto ${profile.name}`"
             width="32"
             height="32"
+            referrerpolicy="no-referrer"
+            decoding="async"
             class="h-8 w-8 rounded-full border border-slate-200 object-cover"
           />
           <span
@@ -67,6 +69,7 @@
 import { RouterLink } from "vue-router";
 import { WalletCards, LogOut, Menu, X } from "lucide-vue-next";
 import type { User } from "../../users/api/userApi";
+import { secureUrl } from "../../../helpers/toolsHelper";
 
 defineProps<{
   profile: User;
