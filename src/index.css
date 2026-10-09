@@ -20,10 +20,6 @@
   }
 }
 
-@utility btn { /* NOSONAR */
-  @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:opacity-60;
-}
-
 @layer components {
   .field-input {
     @apply w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-500 transition-all focus:border-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/30;
@@ -33,16 +29,22 @@
     @apply mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-700;
   }
 
+  .btn-primary,
+  .btn-secondary,
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:opacity-60;
+  }
+
   .btn-primary {
-    @apply btn bg-indigo-700 text-white shadow-md shadow-indigo-700/25 hover:bg-indigo-800 active:bg-indigo-900;
+    @apply bg-indigo-700 text-white shadow-md shadow-indigo-700/25 hover:bg-indigo-800 active:bg-indigo-900;
   }
 
   .btn-secondary {
-    @apply btn border border-slate-300 bg-white text-slate-800 hover:bg-slate-100;
+    @apply border border-slate-300 bg-white text-slate-800 hover:bg-slate-100;
   }
 
   .btn-danger {
-    @apply btn bg-red-700 text-white hover:bg-red-800 active:bg-red-900;
+    @apply bg-red-700 text-white hover:bg-red-800 active:bg-red-900;
   }
 
   .card {
