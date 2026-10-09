@@ -1,5 +1,6 @@
 <template>
-  <main v-if="!usersStore.profile" class="flex min-h-screen items-center justify-center bg-slate-50">
+   <main v-if="!usersStore.profile" class="flex min-h-screen items-center justify-center bg-slate-50">
+    <h1 class="sr-only">Delcom Cash Flow</h1>
     <div class="flex flex-col items-center gap-3" role="status">
       <div class="h-10 w-10 animate-spin rounded-full border-4 border-indigo-700 border-t-transparent" aria-hidden="true" />
       <p class="text-sm font-medium text-slate-700">Memuat sesi pengguna...</p>

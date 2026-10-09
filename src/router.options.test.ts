@@ -29,4 +29,14 @@ describe("router", () => {
   it("menyediakan instance router bawaan", () => {
     expect(router.hasRoute("home")).toBe(true);
   });
+
+  it("memuat seluruh komponen rute secara lazy", async () => {
+    const records = routes.flatMap((route) => [route, ...(route.children ?? [])]);
+
+    for (const record of records) {
+      const loader = record.component as () => Promise<{ default: unknown }>;
+      const module = await loader();
+      expect(module.default).toBeTruthy();
+    }
+  });
 });

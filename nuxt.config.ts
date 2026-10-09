@@ -5,6 +5,9 @@ const customPort = Number(process.env.APP_PORT || process.env.PORT) || 3000;
 const delcomBaseUrl =
   process.env.VITE_DELCOM_BASEURL || "https://open-api.delcom.org/api/v1";
 
+const FONT_URL =
+  "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap";
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
@@ -16,6 +19,8 @@ export default defineNuxtConfig({
   srcDir: "src/",
   // Rute disuplai oleh src/router.options.ts (yang membaca src/routes.ts)
   pages: true,
+  // Template pemuat statis (berisi <h1>) yang tampil sebelum aplikasi SPA ter-mount
+  spaLoadingTemplate: true,
   css: ["~/index.css"],
   modules: ["@pinia/nuxt"],
   vite: {
@@ -58,11 +63,15 @@ export default defineNuxtConfig({
           href: "https://fonts.gstatic.com",
           crossorigin: "",
         },
+        // Font dimuat non-blocking (media="print" -> "all" saat selesai diunduh)
         {
           rel: "stylesheet",
-          href: "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap",
+          href: FONT_URL,
+          media: "print",
+          onload: "this.media='all'",
         },
       ],
+      noscript: [{ innerHTML: `<link rel="stylesheet" href="${FONT_URL}">` }],
       bodyAttrs: {
         class: "bg-slate-50 text-slate-900 font-sans antialiased min-h-screen",
       },
