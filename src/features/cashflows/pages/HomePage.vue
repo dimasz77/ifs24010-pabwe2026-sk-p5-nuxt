@@ -155,7 +155,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, reactive, ref } from "vue";
+import { computed, defineAsyncComponent, onMounted, reactive, ref } from "vue";
 import { RouterLink } from "vue-router";
 import {
   ArrowDownCircle,
@@ -172,8 +172,6 @@ import {
   Trash2,
 } from "lucide-vue-next";
 import FormField from "../../common/components/FormField.vue";
-import AddModal from "../modals/AddModal.vue";
-import ChangeModal from "../modals/ChangeModal.vue";
 import { useCashFlowsStore } from "../states/cashFlowsStore";
 import { CASH_FLOW_SOURCE_LABELS, CASH_FLOW_TYPE_LABELS } from "../constants";
 import type { CashFlow, CashFlowQueryParams } from "../api/cashFlowApi";
@@ -181,6 +179,8 @@ import { formatDate, formatRupiah, showConfirmDialog } from "../../../helpers/to
 
 const cashFlowsStore = useCashFlowsStore();
 
+const AddModal = defineAsyncComponent(() => import("../modals/AddModal.vue"));
+const ChangeModal = defineAsyncComponent(() => import("../modals/ChangeModal.vue"));
 const showAdd = ref(false);
 const editing = ref<CashFlow | null>(null);
 

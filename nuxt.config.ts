@@ -77,12 +77,6 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: "icon", type: "image/svg+xml", href: "/logo.svg" },
-        { rel: "preconnect", href: "https://fonts.googleapis.com" },
-        {
-          rel: "preconnect",
-          href: "https://fonts.gstatic.com",
-          crossorigin: "",
-        },
       ],
       // CSS kritis minimal agar tidak ada flash putih sebelum stylesheet utama aktif
       style: [{ innerHTML: "body{background-color:#f8fafc;color:#0f172a}" }],

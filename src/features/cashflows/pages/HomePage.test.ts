@@ -112,6 +112,7 @@ describe("HomePage", () => {
     expect(wrapper.findComponent(AddModal).exists()).toBe(false);
 
     await wrapper.get('[data-testid="open-add-modal-btn"]').trigger("click");
+    await flushPromises();
     const modal = wrapper.findComponent(AddModal);
     expect(modal.exists()).toBe(true);
 
@@ -129,6 +130,7 @@ describe("HomePage", () => {
     const { wrapper } = setup();
 
     await wrapper.get('[data-testid="edit-btn-cf-2"]').trigger("click");
+    await flushPromises();
     const modal = wrapper.findComponent(ChangeModal);
     expect(modal.props("cashFlow")).toEqual(outflow);
 
