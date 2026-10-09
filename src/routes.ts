@@ -1,11 +1,9 @@
 import type { RouteRecordRaw } from "vue-router";
-import AuthLayout from "./features/auth/layouts/AuthLayout.vue";
-import CashFlowLayout from "./features/cashflows/layouts/CashFlowLayout.vue";
 
 export const routes: RouteRecordRaw[] = [
   {
     path: "/auth",
-    component: AuthLayout,
+    component: () => import("./features/auth/layouts/AuthLayout.vue"),
     children: [
       { path: "login", name: "login", component: () => import("./features/auth/pages/LoginPage.vue") },
       { path: "register", name: "register", component: () => import("./features/auth/pages/RegisterPage.vue") },
@@ -13,7 +11,7 @@ export const routes: RouteRecordRaw[] = [
   },
   {
     path: "/",
-    component: CashFlowLayout,
+    component: () => import("./features/cashflows/layouts/CashFlowLayout.vue"),
     children: [
       { path: "", name: "home", component: () => import("./features/cashflows/pages/HomePage.vue") },
       { path: "cash-flows/:cashFlowId", name: "cash-flow-detail", component: () => import("./features/cashflows/pages/DetailPage.vue") },
