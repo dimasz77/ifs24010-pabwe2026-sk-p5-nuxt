@@ -11,10 +11,11 @@ export default defineNitroPlugin((nitroApp) => {
         }
       );
 
-    html.head = html.head.map(rewrite);
-    html.headAppend = html.headAppend.map(rewrite);
+    if (Array.isArray(html.head)) {
+      html.head = html.head.map(rewrite);
+    }
 
-    if (noscript.length > 0) {
+    if (noscript.length > 0 && Array.isArray(html.head)) {
       html.head.push(`<noscript>${noscript.join("")}</noscript>`);
     }
   });
