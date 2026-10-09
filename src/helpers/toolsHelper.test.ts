@@ -4,6 +4,7 @@ import {
   formatDate,
   formatRupiah,
   getErrorMessage,
+  resolvePhotoUrl,
   secureUrl,
   showConfirmDialog,
   showErrorDialog,
@@ -54,15 +55,25 @@ describe("toolsHelper", () => {
     });
   });
 
-  describe("secureUrl", () => {
-    it("mengubah http menjadi https", () => {
-      expect(secureUrl("http://a.test/x.png")).toBe("https://a.test/x.png");
+  describe("resolvePhotoUrl", () => {
+    it("mengembalikan string kosong untuk nilai kosong", () => {
+      expect(resolvePhotoUrl(null)).toBe("");
+      expect(resolvePhotoUrl(undefined)).toBe("");
+      expect(resolvePhotoUrl("")).toBe("");
     });
 
-    it("membiarkan url https dan menangani nilai kosong", () => {
-      expect(secureUrl("https://a.test/x.png")).toBe("https://a.test/x.png");
-      expect(secureUrl(null)).toBe("");
-      expect(secureUrl(undefined)).toBe("");
+    it("membiarkan url https dan mengubah http menjadi https", () => {
+      expect(resolvePhotoUrl("https://a.test/x.png")).toBe("https://a.test/x.png");
+      expect(resolvePhotoUrl("http://a.test/x.png")).toBe("https://a.test/x.png");
+    });
+
+    it("melengkapi path relatif dengan origin Delcom", () => {
+      expect(resolvePhotoUrl("img/profile/a.png")).toBe(`${DELCOM_ORIGIN}/img/profile/a.png`);
+      expect(resolvePhotoUrl("/img/profile/a.png")).toBe(`${DELCOM_ORIGIN}/img/profile/a.png`);
+    });
+
+    it("secureUrl adalah alias resolvePhotoUrl", () => {
+      expect(secureUrl("img/a.png")).toBe(resolvePhotoUrl("img/a.png"));
     });
   });
 

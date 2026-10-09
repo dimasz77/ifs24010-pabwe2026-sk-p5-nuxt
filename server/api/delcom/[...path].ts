@@ -1,0 +1,14 @@
+import { defineEventHandler, getRequestURL, getRouterParam, proxyRequest, setResponseStatus } from "h3";
+
+export default defineEventHandler(async (event) => {
+  const upstream = (process.env.VITE_DELCOM_BASEURL || "https://open-api.delcom.org/api/v1").replace(/\/+$/, "");
+  const path = getRouterParam(event, "path") || "";
+  const search = getRequestURL(event).search;
+
+  try {
+    return await proxyRequest(event, `${upstream}/${path}${search}`);
+  } catch (error) {
+    setResponseStatus(event, 502);
+    return { status: "error", message: `Gagal menghubungi server Delcom: ${(error as Error).message}` };
+  }
+});

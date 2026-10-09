@@ -7,6 +7,7 @@ import process from "node:process";
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
   const port = Number(env.APP_PORT || env.PORT) || 3000;
+  const baseUrl = env.VITE_DELCOM_BASEURL || "https://open-api.delcom.org/api/v1";
 
   return {
     plugins: [vue(), tailwindcss()],
@@ -17,9 +18,8 @@ export default defineConfig(({ mode }) => {
       port,
     },
     define: {
-      DELCOM_BASEURL: JSON.stringify(
-        env.VITE_DELCOM_BASEURL || "https://open-api.delcom.org/api/v1"
-      ),
+      DELCOM_BASEURL: JSON.stringify(baseUrl),
+      DELCOM_ORIGIN: JSON.stringify(new URL(baseUrl).origin),
     },
     test: {
       globals: true,

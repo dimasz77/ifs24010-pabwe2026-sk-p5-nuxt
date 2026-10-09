@@ -56,9 +56,21 @@ export function getErrorMessage(error: unknown, fallback: string): string {
   return error instanceof Error && error.message ? error.message : fallback;
 }
 
-export function secureUrl(url: string | null | undefined): string {
-  return url ? url.replace(/^http:\/\//i, "https://") : "";
+/**
+ * Foto profil dari API bisa berupa URL penuh atau path relatif (img/profile/...).
+ * Path relatif dilengkapi dengan origin Delcom; http diubah menjadi https.
+ */
+export function resolvePhotoUrl(photo: string | null | undefined): string {
+  if (!photo) {
+    return "";
+  }
+  if (/^https?:\/\//i.test(photo)) {
+    return photo.replace(/^http:\/\//i, "https://");
+  }
+  return `${DELCOM_ORIGIN}/${photo.replace(/^\/+/, "")}`;
 }
+
+export const secureUrl = resolvePhotoUrl;
 
 export function formatRupiah(value: number | string | null | undefined): string {
   return new Intl.NumberFormat("id-ID", {

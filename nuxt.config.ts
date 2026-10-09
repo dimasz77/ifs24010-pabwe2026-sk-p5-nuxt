@@ -1,22 +1,23 @@
 import { defineNuxtConfig } from "nuxt/config";
 import tailwindcss from "@tailwindcss/vite";
+import { deferNuxtCss } from "./server/utils/deferCss";
 
 const customPort = Number(process.env.APP_PORT || process.env.PORT) || 3000;
 const delcomBaseUrl =
   process.env.VITE_DELCOM_BASEURL || "https://open-api.delcom.org/api/v1";
+
+// Browser memanggil API lewat proxy same-origin (server/api/delcom/[...path].ts).
+// Set VITE_DELCOM_DIRECT=true (lalu build ulang) untuk memanggil Delcom langsung.
+const useDirectApi = process.env.VITE_DELCOM_DIRECT === "true";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
   telemetry: false,
-  // SPA mode: routing dan penyimpanan token sepenuhnya di sisi klien
   ssr: false,
-  // Kode sumber aplikasi berada di dalam src/
   srcDir: "src/",
-  // Rute disuplai oleh src/router.options.ts (yang membaca src/routes.ts)
   pages: true,
-  // Template pemuat statis (berisi <h1>) yang tampil sebelum aplikasi SPA ter-mount
   spaLoadingTemplate: true,
   experimental: { appManifest: false },
   css: ["~/index.css"],
@@ -24,7 +25,8 @@ export default defineNuxtConfig({
   vite: {
     plugins: [tailwindcss()],
     define: {
-      DELCOM_BASEURL: JSON.stringify(delcomBaseUrl),
+      DELCOM_BASEURL: JSON.stringify(useDirectApi ? delcomBaseUrl : "/api/delcom"),
+      DELCOM_ORIGIN: JSON.stringify(new URL(delcomBaseUrl).origin),
     },
     build: {
       chunkSizeWarningLimit: 1500,
@@ -33,8 +35,28 @@ export default defineNuxtConfig({
   devServer: {
     port: customPort,
   },
+  // HTML tidak boleh "no-store" agar bisa dipulihkan dari bfcache; aset build di-cache lama.
+  routeRules: {
+    "/": { headers: { "cache-control": "public, max-age=0, must-revalidate" } },
+    "/auth/**": { headers: { "cache-control": "public, max-age=0, must-revalidate" } },
+    "/users": { headers: { "cache-control": "public, max-age=0, must-revalidate" } },
+    "/profile": { headers: { "cache-control": "public, max-age=0, must-revalidate" } },
+    "/cash-flows/**": { headers: { "cache-control": "public, max-age=0, must-revalidate" } },
+    "/_nuxt/**": { headers: { "cache-control": "public, max-age=31536000, immutable" } },
+  },
   nitro: {
     devPort: customPort,
+    hooks: {
+      // Untuk HTML yang di-prerender saat build (200.html / index.html)
+      "prerender:generate"(route) {
+        if (typeof route.contents === "string" && route.fileName?.endsWith(".html")) {
+          route.contents = deferNuxtCss(route.contents);
+        }
+      },
+    },
+    externals: {
+      inline: ["@vue/shared"],
+    },
   },
   app: {
     head: {
@@ -62,6 +84,8 @@ export default defineNuxtConfig({
           crossorigin: "",
         },
       ],
+      // CSS kritis minimal agar tidak ada flash putih sebelum stylesheet utama aktif
+      style: [{ innerHTML: "body{background-color:#f8fafc;color:#0f172a}" }],
       bodyAttrs: {
         class: "bg-slate-50 text-slate-900 font-sans antialiased min-h-screen",
       },

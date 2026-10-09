@@ -8,6 +8,8 @@ vi.mock("../../../helpers/toolsHelper", () => ({
   showErrorDialog: vi.fn(),
   showSuccessDialog: vi.fn(),
   getErrorMessage: () => "error",
+  secureUrl: (url: string | null | undefined) => url ?? "",
+  resolvePhotoUrl: (url: string | null | undefined) => url ?? "",
 }));
 
 function setup(profile: typeof mockUser | null = mockUser) {
