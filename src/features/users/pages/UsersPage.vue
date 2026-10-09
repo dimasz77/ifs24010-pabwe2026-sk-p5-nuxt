@@ -26,10 +26,10 @@
       </div>
 
       <div class="grid grid-cols-1 gap-4 p-6 md:grid-cols-2 lg:grid-cols-3">
-        <div v-if="loading" class="col-span-full py-16 text-center text-slate-600" role="status">
+        <output v-if="loading" class="col-span-full py-16 text-center text-slate-600">
           <Loader2 :size="36" class="mx-auto mb-2 animate-spin text-indigo-700" aria-hidden="true" />
           <p class="font-medium">Memuat daftar pengguna...</p>
-        </div>
+        </output>
         <div v-else-if="filteredUsers.length === 0" class="col-span-full py-12 text-center text-slate-600">
           <Users :size="40" class="mx-auto mb-2 text-slate-500" aria-hidden="true" />
           <p class="font-medium">Tidak ada data pengguna ditemukan.</p>

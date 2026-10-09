@@ -1,6 +1,6 @@
 <template>
   <div>
-    <label :for="id" class="field-label">
+    <label :for="inputId" class="field-label">
       {{ label }}
       <span v-if="required" class="text-red-700" aria-hidden="true">*</span>
     </label>
@@ -11,7 +11,7 @@
 <script setup lang="ts">
 withDefaults(
   defineProps<{
-    id: string;
+    inputId: string;
     label: string;
     required?: boolean;
   }>(),

@@ -46,19 +46,19 @@ const usersStore = useUsersStore();
 
 const isLoginActive = computed(() => route.path === "/auth/login");
 
-onMounted(() => {
+onMounted(async () => {
   if (apiHelper.getAccessToken()) {
-    void usersStore.asyncSetProfile();
+    await usersStore.asyncSetProfile();
   }
 });
 
 watch(
   () => usersStore.isProfile,
-  (isProfile) => {
+  async (isProfile) => {
     if (isProfile) {
       usersStore.setIsProfile(false);
       if (usersStore.profile) {
-        void router.push("/");
+        await router.push("/");
       }
     }
   }

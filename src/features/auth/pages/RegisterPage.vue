@@ -1,6 +1,6 @@
 <template>
   <form class="space-y-4" @submit.prevent="onSubmitHandler">
-    <FormField id="register-name-input" label="Nama Lengkap" required>
+    <FormField input-id="register-name-input" label="Nama Lengkap" required>
       <input
         id="register-name-input"
         v-model="name"
@@ -13,7 +13,7 @@
       />
     </FormField>
 
-    <FormField id="register-email-input" label="Alamat Email" required>
+    <FormField input-id="register-email-input" label="Alamat Email" required>
       <input
         id="register-email-input"
         v-model="email"
@@ -26,7 +26,7 @@
       />
     </FormField>
 
-    <FormField id="register-password-input" label="Kata Sandi" required>
+    <FormField input-id="register-password-input" label="Kata Sandi" required>
       <input
         id="register-password-input"
         v-model="password"
@@ -40,7 +40,7 @@
       />
     </FormField>
 
-    <FormField id="register-confirm-input" label="Ulangi Kata Sandi" required>
+    <FormField input-id="register-confirm-input" label="Ulangi Kata Sandi" required>
       <input
         id="register-confirm-input"
         v-model="confirmPassword"

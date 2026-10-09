@@ -5,7 +5,7 @@ import FormField from "./FormField.vue";
 describe("FormField", () => {
   it("menghubungkan label dengan input lewat atribut for", () => {
     const wrapper = mount(FormField, {
-      props: { id: "nama", label: "Nama" },
+      props: { inputId: "nama", label: "Nama" },
       slots: { default: '<input id="nama" />' },
     });
 
@@ -16,13 +16,13 @@ describe("FormField", () => {
   });
 
   it("tidak menampilkan tanda wajib secara bawaan", () => {
-    const wrapper = mount(FormField, { props: { id: "a", label: "A" } });
+    const wrapper = mount(FormField, { props: { inputId: "a", label: "A" } });
 
     expect(wrapper.find("span").exists()).toBe(false);
   });
 
   it("menampilkan tanda wajib yang disembunyikan dari pembaca layar", () => {
-    const wrapper = mount(FormField, { props: { id: "a", label: "A", required: true } });
+    const wrapper = mount(FormField, { props: { inputId: "a", label: "A", required: true } });
 
     const star = wrapper.get("span");
     expect(star.text()).toBe("*");

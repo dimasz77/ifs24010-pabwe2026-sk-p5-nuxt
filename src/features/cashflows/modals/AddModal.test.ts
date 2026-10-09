@@ -20,7 +20,7 @@ describe("AddModal", () => {
   it("menampilkan dialog dengan form kosong", () => {
     const { wrapper } = renderWithProviders(AddModal);
 
-    expect(wrapper.get('[role="dialog"]').exists()).toBe(true);
+    expect(wrapper.get("dialog").exists()).toBe(true);
     expect(wrapper.text()).toContain("Tambah Catatan Arus Kas");
     expect((wrapper.get('[data-testid="add-label-input"]').element as HTMLInputElement).value).toBe("");
   });

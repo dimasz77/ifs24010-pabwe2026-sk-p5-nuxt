@@ -15,8 +15,7 @@ describe("ModalDialog", () => {
     const wrapper = mountModal();
 
     const dialog = wrapper.get('[data-testid="uji-modal"]');
-    expect(dialog.attributes("role")).toBe("dialog");
-    expect(dialog.attributes("aria-modal")).toBe("true");
+    expect(dialog.element.tagName).toBe("DIALOG");
     expect(dialog.attributes("aria-labelledby")).toBe("uji-modal-title");
     expect(wrapper.get("#uji-modal-title").text()).toBe("Judul Modal");
     expect(wrapper.text()).toContain("Isi modal");
@@ -25,6 +24,7 @@ describe("ModalDialog", () => {
   it("memindahkan fokus ke dialog dan mengunci scroll halaman", () => {
     const wrapper = mountModal();
 
+    expect(wrapper.get('[data-testid="uji-modal"]').attributes("open")).toBeDefined();
     expect(document.activeElement).toBe(wrapper.get('[data-testid="uji-modal"]').element);
     expect(document.body.style.overflow).toBe("hidden");
   });

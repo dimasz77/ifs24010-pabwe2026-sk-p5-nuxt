@@ -1,12 +1,10 @@
 <template>
-  <div
+  <dialog
     ref="dialogRef"
     :data-testid="testId"
-    role="dialog"
-    aria-modal="true"
     :aria-labelledby="titleId"
     tabindex="-1"
-    class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 focus:outline-none"
+    class="fixed inset-0 z-50 m-0 flex h-screen w-screen max-h-none max-w-none items-center justify-center border-0 bg-slate-900/60 p-4 focus:outline-none"
     @keydown.esc="emit('close')"
   >
     <div class="card flex max-h-full w-full max-w-xl flex-col overflow-hidden">
@@ -26,7 +24,7 @@
         <slot />
       </div>
     </div>
-  </div>
+  </dialog>
 </template>
 
 <script setup lang="ts">
@@ -39,18 +37,20 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (e: "close"): void;
+  close: [];
 }>();
 
-const dialogRef = ref<HTMLElement | null>(null);
+const dialogRef = ref<HTMLDialogElement | null>(null);
 const titleId = `${props.testId}-title`;
 
 onMounted(() => {
   document.body.style.overflow = "hidden";
-  (dialogRef.value as HTMLElement).focus();
+  dialogRef.value?.showModal();
+  dialogRef.value?.focus();
 });
 
 onBeforeUnmount(() => {
+  dialogRef.value?.close();
   document.body.style.overflow = "";
 });
 </script>

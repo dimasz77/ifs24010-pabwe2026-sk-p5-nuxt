@@ -9,7 +9,7 @@ import cashFlowApi, {
 } from "../api/cashFlowApi";
 import { getErrorMessage, showErrorDialog, showSuccessDialog } from "../../../helpers/toolsHelper";
 
-export type { CashFlow, CashFlowQueryParams, CashFlowStats };
+export type { CashFlow, CashFlowQueryParams, CashFlowStats } from "../api/cashFlowApi";
 
 export interface CashFlowsState {
   cashFlows: CashFlow[];

@@ -1,6 +1,6 @@
 <template>
   <form class="space-y-4" @submit.prevent="onSubmitHandler">
-    <FormField id="login-email-input" label="Alamat Email" required>
+    <FormField input-id="login-email-input" label="Alamat Email" required>
       <input
         id="login-email-input"
         v-model="email"
@@ -13,7 +13,7 @@
       />
     </FormField>
 
-    <FormField id="login-password-input" label="Kata Sandi" required>
+    <FormField input-id="login-password-input" label="Kata Sandi" required>
       <input
         id="login-password-input"
         v-model="password"

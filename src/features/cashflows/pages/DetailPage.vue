@@ -7,10 +7,10 @@
 
     <div v-if="loading" class="py-24 text-center text-slate-700">
       <h1 class="sr-only">Detail Transaksi</h1>
-      <div role="status">
+      <output class="block">
         <Loader2 :size="36" class="mx-auto mb-2 animate-spin text-indigo-700" aria-hidden="true" />
         <p class="font-medium">Memuat detail transaksi...</p>
-      </div>
+      </output>
     </div>
 
     <div v-else-if="!cashFlow" class="card p-8 text-center" data-testid="not-found-state">

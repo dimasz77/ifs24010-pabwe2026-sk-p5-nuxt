@@ -57,7 +57,7 @@ defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (e: "close-mobile"): void;
+  "close-mobile": [];
 }>();
 
 const route = useRoute();

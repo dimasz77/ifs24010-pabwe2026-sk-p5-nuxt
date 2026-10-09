@@ -33,28 +33,28 @@
     <section class="card p-4 sm:p-5" aria-labelledby="filter-title">
       <h2 id="filter-title" class="mb-4 text-base font-bold text-slate-900">Filter Transaksi</h2>
       <form class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5" @submit.prevent="applyFilters">
-        <FormField id="filter-type" label="Jenis">
+        <FormField input-id="filter-type" label="Jenis">
           <select id="filter-type" v-model="filters.type" data-testid="filter-type" class="field-input">
             <option value="">Semua</option>
             <option v-for="(text, value) in CASH_FLOW_TYPE_LABELS" :key="value" :value="value">{{ text }}</option>
           </select>
         </FormField>
-        <FormField id="filter-source" label="Sumber Dana">
+        <FormField input-id="filter-source" label="Sumber Dana">
           <select id="filter-source" v-model="filters.source" data-testid="filter-source" class="field-input">
             <option value="">Semua</option>
             <option v-for="(text, value) in CASH_FLOW_SOURCE_LABELS" :key="value" :value="value">{{ text }}</option>
           </select>
         </FormField>
-        <FormField id="filter-label" label="Label">
+        <FormField input-id="filter-label" label="Label">
           <select id="filter-label" v-model="filters.label" data-testid="filter-label" class="field-input">
             <option value="">Semua</option>
             <option v-for="item in cashFlowsStore.labels" :key="item" :value="item">{{ item }}</option>
           </select>
         </FormField>
-        <FormField id="filter-start-date" label="Tanggal Awal">
+        <FormField input-id="filter-start-date" label="Tanggal Awal">
           <input id="filter-start-date" v-model="filters.start_date" type="date" data-testid="filter-start-date" class="field-input" />
         </FormField>
-        <FormField id="filter-end-date" label="Tanggal Akhir">
+        <FormField input-id="filter-end-date" label="Tanggal Akhir">
           <input id="filter-end-date" v-model="filters.end_date" type="date" data-testid="filter-end-date" class="field-input" />
         </FormField>
         <div class="flex gap-3 sm:col-span-2 lg:col-span-5">
@@ -72,10 +72,10 @@
         Daftar Transaksi
       </h2>
 
-      <div v-if="cashFlowsStore.isCashFlowsLoading" class="py-16 text-center text-slate-700" role="status">
+      <output v-if="cashFlowsStore.isCashFlowsLoading" class="block py-16 text-center text-slate-700">
         <Loader2 :size="36" class="mx-auto mb-2 animate-spin text-indigo-700" aria-hidden="true" />
         <p class="font-medium">Memuat data arus kas...</p>
-      </div>
+      </output>
 
       <p v-else-if="cashFlowsStore.cashFlows.length === 0" class="py-12 text-center font-medium text-slate-700" data-testid="empty-state">
         Belum ada catatan arus kas yang sesuai.

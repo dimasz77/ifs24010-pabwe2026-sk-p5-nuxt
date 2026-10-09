@@ -1,10 +1,10 @@
 <template>
    <main v-if="!usersStore.profile" class="flex min-h-screen items-center justify-center bg-slate-50">
     <h1 class="sr-only">Delcom Cash Flow</h1>
-    <div class="flex flex-col items-center gap-3" role="status">
+    <output class="flex flex-col items-center gap-3">
       <div class="h-10 w-10 animate-spin rounded-full border-4 border-indigo-700 border-t-transparent" aria-hidden="true" />
       <p class="text-sm font-medium text-slate-700">Memuat sesi pengguna...</p>
-    </div>
+    </output>
   </main>
 
   <div v-else class="min-h-screen bg-slate-50 text-slate-800">
@@ -40,23 +40,23 @@ const authStore = useAuthStore();
 
 const isSidebarOpen = ref(false);
 
-onMounted(() => {
+onMounted(async () => {
   if (apiHelper.getAccessToken()) {
-    void usersStore.asyncSetProfile();
+    await usersStore.asyncSetProfile();
   } else {
-    void router.push("/auth/login");
+    await router.push("/auth/login");
   }
 });
 
 // Setelah pengambilan profil selesai tanpa hasil, sesi dianggap tidak valid.
 watch(
   () => usersStore.isProfile,
-  (isProfile) => {
+  async (isProfile) => {
     if (isProfile) {
       usersStore.setIsProfile(false);
       if (!usersStore.profile) {
         apiHelper.putAccessToken(null);
-        void router.push("/auth/login");
+        await router.push("/auth/login");
       }
     }
   }
@@ -64,16 +64,16 @@ watch(
 
 watch(
   () => authStore.isAuthLogout,
-  (isAuthLogout) => {
+  async (isAuthLogout) => {
     if (isAuthLogout) {
       authStore.setIsAuthLogout(false);
       usersStore.setProfile(null);
-      void router.push("/auth/login");
+      await router.push("/auth/login");
     }
   }
 );
 
-function handleLogout(): void {
-  void authStore.asyncSetIsAuthLogout();
+async function handleLogout(): Promise<void> {
+  await authStore.asyncSetIsAuthLogout();
 }
 </script>

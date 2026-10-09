@@ -58,10 +58,10 @@
         </div>
 
         <form class="space-y-4" @submit.prevent="handleUpdateProfile">
-          <FormField id="profile-name-input" label="Nama Lengkap" required>
+          <FormField input-id="profile-name-input" label="Nama Lengkap" required>
             <input id="profile-name-input" v-model="name" type="text" autocomplete="name" data-testid="profile-name-input" class="field-input" required />
           </FormField>
-          <FormField id="profile-email-input" label="Alamat Email" required>
+          <FormField input-id="profile-email-input" label="Alamat Email" required>
             <input id="profile-email-input" v-model="email" type="email" autocomplete="email" data-testid="profile-email-input" class="field-input" required />
           </FormField>
           <button type="submit" data-testid="submit-profile-btn" :disabled="loadingProfile" class="btn-primary w-full">
@@ -77,13 +77,13 @@
         </div>
 
         <form class="space-y-4" @submit.prevent="handleUpdatePassword">
-          <FormField id="current-password-input" label="Kata Sandi Saat Ini" required>
+          <FormField input-id="current-password-input" label="Kata Sandi Saat Ini" required>
             <input id="current-password-input" v-model="oldPassword" type="password" autocomplete="current-password" data-testid="current-password-input" class="field-input" required />
           </FormField>
-          <FormField id="new-password-input" label="Kata Sandi Baru" required>
+          <FormField input-id="new-password-input" label="Kata Sandi Baru" required>
             <input id="new-password-input" v-model="newPassword" type="password" autocomplete="new-password" data-testid="new-password-input" placeholder="Minimal 6 karakter" class="field-input" required />
           </FormField>
-          <FormField id="confirm-password-input" label="Ulangi Kata Sandi Baru" required>
+          <FormField input-id="confirm-password-input" label="Ulangi Kata Sandi Baru" required>
             <input id="confirm-password-input" v-model="newPasswordConfirmation" type="password" autocomplete="new-password" data-testid="confirm-password-input" class="field-input" required />
           </FormField>
           <button type="submit" data-testid="submit-password-btn" :disabled="loadingPassword" class="btn-primary w-full">
